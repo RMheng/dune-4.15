@@ -628,7 +628,7 @@ static inline struct vmx_vcpu *mmu_notifier_to_vmx(struct mmu_notifier *mn)
 	return container_of(mn, struct vmx_vcpu, mmu_notifier);
 }
 
-static void ept_mmu_notifier_invalidate_page(struct mmu_notifier *mn,
+/*static void ept_mmu_notifier_invalidate_page(struct mmu_notifier *mn,
 					     struct mm_struct *mm,
 					     unsigned long address)
 {
@@ -637,7 +637,7 @@ static void ept_mmu_notifier_invalidate_page(struct mmu_notifier *mn,
 	pr_debug("ept: invalidate_page addr %lx\n", address);
 
 	ept_invalidate_page(vcpu, mm, address);
-}
+}*/
 
 static void ept_mmu_notifier_invalidate_range_start(struct mmu_notifier *mn,
 						    struct mm_struct *mm,
@@ -750,7 +750,8 @@ static void ept_mmu_notifier_release(struct mmu_notifier *mn,
 }
 
 static const struct mmu_notifier_ops ept_mmu_notifier_ops = {
-	.invalidate_page	= ept_mmu_notifier_invalidate_page,
+	//.invalidate_page	= ept_mmu_notifier_invalidate_page,
+	//.invalidate_range = ept_mmu_notifier_invalidate_page,
 	.invalidate_range_start	= ept_mmu_notifier_invalidate_range_start,
 	.invalidate_range_end	= ept_mmu_notifier_invalidate_range_end,
 	.clear_flush_young	= ept_mmu_notifier_clear_flush_young,

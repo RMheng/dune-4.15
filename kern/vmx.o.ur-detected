@@ -1,0 +1,2 @@
+/home/nv/dune/dune/kern/vmx.o-.text-284c /home/nv/dune/dune/kern/vmx.c .text vmx_launch callq *(%rax)
+/home/nv/dune/dune/kern/vmx.o-.text-29b1 /home/nv/dune/dune/kern/vmx.c .text vmx_launch callq *%rdx

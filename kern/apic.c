@@ -3,6 +3,7 @@
 #include <linux/mm.h>
 #include <linux/slab.h>
 #include <asm/ipi.h>
+#include <asm/apic.h>
 
 #include "dune.h"
 
@@ -11,6 +12,9 @@
 
 static int *apic_routing;
 static int num_rt_entries;
+static inline void x2apic_wrmsr_fence(void){
+	asm volatile("mfence" : : : "memory");
+}
 
 #define BY_APIC_TYPE(x, x2) if (x2apic_enabled()) { x2; } else { x; }
 
@@ -101,6 +105,7 @@ static void dune_apic_send_ipi_x2(u8 vector, u32 destination_apic_id)
 	u32 low;
 	low = __prepare_ICR(0, vector, APIC_DEST_PHYSICAL);
 	x2apic_wrmsr_fence();
+	//weak_wrmsr_fence();
 	wrmsrl(APIC_BASE_MSR + (APIC_ICR >> 4), ((__u64) destination_apic_id) << 32 | low);
 }
 
@@ -112,7 +117,8 @@ static void dune_apic_send_ipi_x2(u8 vector, u32 destination_apic_id)
  */
 static void dune_apic_send_ipi_x(u8 vector, u8 destination_apic_id)
 {
-	__default_send_IPI_dest_field(destination_apic_id, vector, APIC_DEST_PHYSICAL);
+	printk("disabled function dune_apic_send_ipi_x is called.\n");
+	//__default_send_IPI_dest_field(destination_apic_id, vector, APIC_DEST_PHYSICAL);
 }
 
 /* dune_apic_send_ipi

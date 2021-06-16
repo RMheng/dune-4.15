@@ -26,7 +26,9 @@ struct vmx_capability {
 extern struct vmx_capability vmx_capability;
 
 #define NR_AUTOLOAD_MSRS 8
-
+#define VMX_EPT_DEFAULT_MT 0x6ull
+#define  VMX_EPT_DEFAULT_GAW 3
+#define  VMX_EPT_GAW_EPTP_SHIFT 3
 enum vmx_reg {
 	VCPU_REGS_RAX = 0,
 	VCPU_REGS_RCX = 1,
